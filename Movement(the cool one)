@@ -1,0 +1,48 @@
+//THIS IS A STEP EVENT, PLEASE ASSIGN VARIABLES (hsp, vsp, walksp) IN A "CREATE" EVENT _ THANK YOU <3
+//movement (get player input)
+key_left = keyboard_check(ord("A"));
+key_right = keyboard_check(ord("D"));
+key_jump = keyboard_check(ord("W"));
+key_down = keyboard_check(ord("S"));
+
+
+//transpride
+
+//calculate movement
+var move = key_right - key_left; //temp variable (1 frame/loop of step) 
+
+hsp = move * walksp;
+
+var move = key_down - key_jump;
+vsp = move * walksp;  
+
+
+
+
+if (place_meeting(x,y+1,oWall)) and (key_jump)
+{
+	vsp = -7;
+}
+
+//horizontal collision
+if (place_meeting(x+hsp,y,oWall))
+{
+	while (!place_meeting(x+sign(hsp),y,oWall)) //sign delivers 1 or -1 depedning on if var (hsp) + or -
+	{
+		x = x + sign(hsp);
+	}
+	hsp = 0;
+}
+x = x + hsp; //x coord value
+
+
+//vertical collision
+if (place_meeting(x,y+vsp,oWall))
+{
+	while (!place_meeting(x,y+sign(vsp),oWall)) //sign delivers 1 or -1 depedning on if var (hsp) + or -
+	{
+		y = y + sign(vsp);
+	}
+	vsp = 0;
+}
+y = y + vsp; //y coord value
